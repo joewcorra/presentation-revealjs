@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Joe Corra">
+<meta name="dcterms.date" content="2026-01-25">
+
+<title>Can You Share Those Slides?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="quarto_slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="quarto_slides_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="quarto_slides_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="quarto_slides_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="quarto_slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="quarto_slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="quarto_slides_files/libs/quarto-html/anchor.min.js"></script>
+<link href="quarto_slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="quarto_slides_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="quarto_slides_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="quarto_slides_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="quarto_slides_files/libs/bootstrap/bootstrap-514981598f886405bc67e039c5001fd5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction-the-problem" id="toc-introduction-the-problem" class="nav-link active" data-scroll-target="#introduction-the-problem"><span class="header-section-number">1</span> Introduction: The Problem</a></li>
+  <li><a href="#bad-slides-an-example" id="toc-bad-slides-an-example" class="nav-link" data-scroll-target="#bad-slides-an-example"><span class="header-section-number">2</span> Bad Slides: An Example</a></li>
+  <li><a href="#what-is-quarto" id="toc-what-is-quarto" class="nav-link" data-scroll-target="#what-is-quarto"><span class="header-section-number">3</span> What is Quarto?</a></li>
+  <li><a href="#what-is-revealjs" id="toc-what-is-revealjs" class="nav-link" data-scroll-target="#what-is-revealjs"><span class="header-section-number">4</span> What is revealjs?</a></li>
+  <li><a href="#our-solution-one-script-for-two-outputs" id="toc-our-solution-one-script-for-two-outputs" class="nav-link" data-scroll-target="#our-solution-one-script-for-two-outputs"><span class="header-section-number">5</span> Our Solution: One Script for Two Outputs</a></li>
+  <li><a href="#setting-up-your-document" id="toc-setting-up-your-document" class="nav-link" data-scroll-target="#setting-up-your-document"><span class="header-section-number">6</span> Setting Up Your Document</a></li>
+  <li><a href="#rendering-your-outputs" id="toc-rendering-your-outputs" class="nav-link" data-scroll-target="#rendering-your-outputs"><span class="header-section-number">7</span> Rendering Your Outputs</a></li>
+  <li><a href="#live-demonstration" id="toc-live-demonstration" class="nav-link" data-scroll-target="#live-demonstration"><span class="header-section-number">8</span> Live Demonstration</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices"><span class="header-section-number">9</span> Best Practices</a></li>
+  <li><a href="#resources-and-next-steps" id="toc-resources-and-next-steps" class="nav-link" data-scroll-target="#resources-and-next-steps"><span class="header-section-number">10</span> Resources and Next Steps</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">11</span> Questions?</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="documentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Can You Share Those Slides?</h1>
+<p class="subtitle lead">Using Quarto and revealjs for Efficient Presentations</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Joe Corra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 25, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-the-problem" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction-the-problem"><span class="header-section-number">1</span> Introduction: The Problem</h2>
+<p>Problems with presentation-only slides:</p>
+<ul>
+<li>Slides lack context after the presentation</li>
+<li>Recreating content is tedious</li>
+</ul>
+<p>Problems with hybrid presentation-documentation slides:</p>
+<ul>
+<li>Presentation suffers so slides can serve as documents</li>
+<li>“Wall of text” slides are hard to read in any setting</li>
+</ul>
+<p>We’ve all experienced this: you attend a great presentation, get the slides afterward, and find they’re difficult to understand without the presenter’s narration. Or you prepare for a presentation, knowing that your slides must do “double duty” as both a presentation tool and a stand-alone document, and create walls of text instead of eye-catching slides.</p>
+<p>One solution is to create two separate documents: concise slides for presenting and detailed documentation for sharing. But maintaining parallel documents can be time-consuming and error-prone, as changes to one require updating the other. Why not create one product that produces both documentation <em>and</em> slides?</p>
+</section>
+<section id="bad-slides-an-example" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="bad-slides-an-example"><span class="header-section-number">2</span> Bad Slides: An Example</h2>
+<p><img src="images/bad_slide.png" class="img-fluid" width="404"></p>
+<ul>
+<li>This slide performs two jobs, and it’s doing both poorly. The “wall of text” approach detracts from the presentation instead of enhancing it. The presenter might be better off with no slide at all! Further, it also fails at its secondary task of providing a permanent document: it’s difficult to read text stretched across a slide, and the author is still space-limited by the format. Why not just share a Word doc?</li>
+</ul>
+</section>
+<section id="what-is-quarto" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="what-is-quarto"><span class="header-section-number">3</span> What is Quarto?</h2>
+<p>Quarto is an open-source scientific and technical publishing system built on Pandoc. It allows you to create dynamic content that combines narrative text, code, and output in a single document.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><strong>Markdown-based</strong>: Write content in plain text with simple formatting syntax</li>
+<li><strong>Code execution</strong>: Run R (or Python, Julia, etc.) code chunks and include results</li>
+<li><strong>Multiple outputs</strong>: Render to HTML, PDF, Word, presentations, and more</li>
+<li><strong>RStudio integration</strong>: Works seamlessly in the RStudio IDE</li>
+</ul>
+<p>Think of Quarto as the evolution of R Markdown, with enhanced features and broader language support. For R users, it provides a familiar authoring experience with powerful new capabilities.</p>
+<p><strong>Installation:</strong></p>
+<p>Quarto comes bundled with recent versions of RStudio, or you can install it separately from <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+</section>
+<section id="what-is-revealjs" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="what-is-revealjs"><span class="header-section-number">4</span> What is revealjs?</h2>
+<p>reveal.js is a popular open-source HTML presentation framework. When you use Quarto’s revealjs format, you’re creating web-based slides that run in any modern browser.</p>
+<p><strong>Advantages over traditional presentation software:</strong></p>
+<p><strong>Portable</strong>: Runs in any web browser, no special software needed</p>
+<p><strong>Responsive</strong>: Adapts to different screen sizes</p>
+<p><strong>Interactive</strong>: Can include live code, interactive visualizations, embedded web content</p>
+<p><strong>Version control friendly</strong>: Plain text source files work great with Git</p>
+<p><strong>Professional styling</strong>: Beautiful default themes with extensive customization options</p>
+<p><strong>When to choose revealjs vs.&nbsp;PowerPoint:</strong></p>
+<p><strong>Choose revealjs</strong> when you want interactive content, need to include live R code/outputs, want version control integration, or are sharing primarily via web/email</p>
+<p><strong>Choose PowerPoint</strong> when presenting in environments with uncertain tech setups, when collaborators need to edit slides in PowerPoint, or when organizational standards require .pptx</p>
+<p><strong>Note</strong>: Quarto can render to PowerPoint format too, giving you flexibility to switch output formats from the same source</p>
+<p><strong>Navigation:</strong></p>
+<ul>
+<li>Arrow keys or space bar to advance slides</li>
+<li>Press ‘S’ for speaker notes</li>
+<li>Press ‘F’ for fullscreen</li>
+<li>Press ‘O’ for overview mode</li>
+</ul>
+<p><strong>This presentation focuses on the basics:</strong> revealjs offers much more advanced functionality including custom themes, transitions, fragments (incremental reveals), multimedia integration, speaker notes, and sophisticated layouts. We’re keeping it simple to focus on the dual-format technique.</p>
+<p>For R users accustomed to creating reproducible reports, revealjs presentations extend that same philosophy to your presentations.</p>
+</section>
+<section id="our-solution-one-script-for-two-outputs" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="our-solution-one-script-for-two-outputs"><span class="header-section-number">5</span> Our Solution: One Script for Two Outputs</h2>
+<p>The key insight is that Quarto allows you to specify multiple output formats and conditionally show/hide content based on the format being rendered. This means you can write one source file that generates both concise presentation slides and detailed documentation.</p>
+<p><strong>How it works:</strong></p>
+<ol type="1">
+<li><strong>Specify multiple formats</strong> in your YAML header (revealjs and html)</li>
+<li><strong>Use conditional content</strong> with <code>.content-visible</code> to control what appears in each format</li>
+<li><strong>Render to specific formats</strong> as needed using terminal commands</li>
+</ol>
+<p><strong>The conditional content syntax:</strong></p>
+<ul>
+<li><code>when-format="revealjs"</code> - content appears ONLY in slides</li>
+<li><code>unless-format="revealjs"</code> - content appears in everything EXCEPT slides</li>
+</ul>
+<p>Shared content (that appears in both formats) is simply written normally, without any conditional wrapper.</p>
+</section>
+<section id="setting-up-your-document" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="setting-up-your-document"><span class="header-section-number">6</span> Setting Up Your Document</h2>
+<p>Every Quarto document starts with a YAML header that specifies metadata and output options. For our dual-format approach, you’ll specify both revealjs and html formats.</p>
+<p><strong>Complete YAML example:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your Presentation Title"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Optional Subtitle"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your Name"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slide-number</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">transition</span><span class="kw">:</span><span class="at"> slide</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Key options explained:</strong></p>
+<ul>
+<li><code>theme</code>: Visual styling (default, dark, simple, etc.)</li>
+<li><code>slide-number</code>: Show slide numbers in presentations</li>
+<li><code>transition</code>: How slides advance (slide, fade, none, etc.)</li>
+<li><code>toc</code>: Include table of contents in HTML document</li>
+<li><code>code-fold</code>: Whether code chunks can be collapsed</li>
+</ul>
+<p>You can customize these extensively - check the Quarto documentation for all available options.</p>
+</section>
+<section id="rendering-your-outputs" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="rendering-your-outputs"><span class="header-section-number">7</span> Rendering Your Outputs</h2>
+<p>To generate your outputs, use Quarto’s command-line interface. This gives you precise control over what gets rendered and what it’s named.</p>
+<p><strong>Recommended workflow:</strong></p>
+<ol type="1">
+<li><strong>Before your presentation</strong>, render the slides:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">quarto</span> render presentation.qmd <span class="at">--to</span> revealjs <span class="at">--output</span> presentation-slides.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li><strong>After your presentation</strong>, render the documentation:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>   <span class="ex">quarto</span> render presentation.qmd <span class="at">--to</span> html <span class="at">--output</span> presentation-document.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Where to run these commands:</strong></p>
+<ul>
+<li>RStudio’s Terminal pane (next to the Console)</li>
+<li>Your system terminal/command prompt</li>
+<li>Or use the R console with the <code>quarto</code> package:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(quarto)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quarto_render</span>(<span class="st">"presentation.qmd"</span>, <span class="at">output_format =</span> <span class="st">"revealjs"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Alternatively, comment out one of the formats in the YAML before rendering:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>format<span class="sc">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  revealjs<span class="sc">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    theme<span class="sc">:</span> moon</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    slide<span class="sc">-</span>number<span class="sc">:</span> true</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    transition<span class="sc">:</span> slide</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># html:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   theme: lux</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   toc: true</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   number-sections: true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="live-demonstration" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="live-demonstration"><span class="header-section-number">8</span> Live Demonstration</h2>
+<section id="youre-reading-the-documentation-version" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="youre-reading-the-documentation-version"><span class="header-section-number">8.1</span> You’re Reading the Documentation Version!</h3>
+<p>If you’re reading this, you’re experiencing the HTML document output from our Quarto source file. Notice how each section includes:</p>
+<ul>
+<li>The brief, slide-appropriate content that appears in both formats</li>
+<li>Extended explanations, code examples, and context that only appear in this document version</li>
+</ul>
+<p><strong>What the slide version looks like:</strong></p>
+<p>The revealjs output shows only the concise bullet points and key information needed during a presentation. Each slide focuses on core concepts without overwhelming detail. The presenter (you!) provides the elaboration verbally.</p>
+<p><strong>What this document version provides:</strong></p>
+<ul>
+<li>Complete explanations that stand alone without a presenter</li>
+<li>Extended code examples with detailed commentary</li>
+<li>Supplementary information and resources</li>
+<li>Context that helps readers understand and apply concepts later</li>
+</ul>
+<p><strong>Try it yourself:</strong></p>
+<p>Generate both versions of this document using the terminal commands from the previous section. Open them side-by-side to see exactly how the same source creates two complementary outputs.</p>
+</section>
+</section>
+<section id="best-practices" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="best-practices"><span class="header-section-number">9</span> Best Practices</h2>
+<section id="making-the-most-of-dual-format-documents" class="level3" data-number="9.1">
+<h3 data-number="9.1" class="anchored" data-anchor-id="making-the-most-of-dual-format-documents"><span class="header-section-number">9.1</span> Making the Most of Dual-Format Documents</h3>
+<p><strong>Content strategy:</strong></p>
+<ol type="1">
+<li><strong>Shared content</strong>: Core concepts, code examples, and key points go in unmarked sections (visible in both formats)</li>
+<li><strong>Slide-only content</strong>: Brief reminders, transitions, or presentation-specific notes use <code>when-format="revealjs"</code></li>
+<li><strong>Document-only content</strong>: Extended explanations, detailed walkthroughs, and supplementary material use <code>unless-format="revealjs"</code></li>
+</ol>
+<p><strong>Writing guidelines:</strong></p>
+<ul>
+<li><strong>Slides should be scannable</strong>: Think bullet points, key phrases, and visual anchors for your verbal presentation</li>
+<li><strong>Documentation should be comprehensive</strong>: Write as if the reader wasn’t at your presentation and needs complete context</li>
+<li><strong>Don’t duplicate unnecessarily</strong>: If content works well in both formats, just write it once without conditional formatting</li>
+</ul>
+<p><strong>Technical tips:</strong></p>
+<ul>
+<li>Render both formats regularly during development to catch formatting issues early</li>
+<li>Use code folding (<code>code-fold: true</code>) in HTML output for long code chunks</li>
+<li>Consider adding speaker notes to slides using <code>::: {.notes}</code> blocks</li>
+<li>Test your slides at actual presentation resolution</li>
+</ul>
+<p><strong>Common pitfalls to avoid:</strong></p>
+<ul>
+<li>Don’t make slides too text-heavy just because you can add detail to the document</li>
+<li>Don’t forget to update both conditional sections when content changes</li>
+<li>Don’t assume your audience will read the documentation - make slides self-sufficient for the presentation moment</li>
+</ul>
+</section>
+</section>
+<section id="resources-and-next-steps" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="resources-and-next-steps"><span class="header-section-number">10</span> Resources and Next Steps</h2>
+<section id="additional-resources" class="level3" data-number="10.1">
+<h3 data-number="10.1" class="anchored" data-anchor-id="additional-resources"><span class="header-section-number">10.1</span> Additional Resources</h3>
+<p><strong>Official documentation:</strong></p>
+<ul>
+<li><strong>Quarto</strong>: <a href="https://quarto.org" class="uri">https://quarto.org</a> - Comprehensive guides, examples, and reference</li>
+<li><strong>Quarto presentations</strong>: <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a> - Presentation-specific features</li>
+<li><strong>revealjs format</strong>: <a href="https://quarto.org/docs/presentations/revealjs/" class="uri">https://quarto.org/docs/presentations/revealjs/</a> - All revealjs options and customization</li>
+</ul>
+<p><strong>Advanced topics to explore:</strong></p>
+<ul>
+<li><strong>Themes and styling</strong>: Create custom CSS themes for consistent branding</li>
+<li><strong>Interactive content</strong>: Embed Shiny apps, interactive plots, or live code execution</li>
+<li><strong>Speaker notes</strong>: Add presenter-only notes that don’t appear in slides</li>
+<li><strong>Advanced layouts</strong>: Multi-column slides, incremental reveals, fragments</li>
+<li><strong>Publishing</strong>: Host your HTML outputs on GitHub Pages, Quarto Pub, or other platforms</li>
+</ul>
+</section>
+<section id="applying-this-technique" class="level3" data-number="10.2">
+<h3 data-number="10.2" class="anchored" data-anchor-id="applying-this-technique"><span class="header-section-number">10.2</span> Applying This Technique</h3>
+<p>This same approach works for:</p>
+<ul>
+<li><strong>Training materials</strong>: Presentation slides plus detailed tutorial documentation</li>
+<li><strong>Conference talks</strong>: Public slides plus extended technical writeup</li>
+<li><strong>Internal reports</strong>: Executive summary slides plus full analytical report</li>
+<li><strong>Course lectures</strong>: Classroom slides plus student reference materials</li>
+</ul>
+<p>The key is thinking about your content in two modes: what you need to <em>present</em> and what your audience needs to <em>reference later</em>.</p>
+</section>
+<section id="try-it-yourself" class="level3" data-number="10.3">
+<h3 data-number="10.3" class="anchored" data-anchor-id="try-it-yourself"><span class="header-section-number">10.3</span> Try It Yourself</h3>
+<p>Create a simple presentation on a topic you know well:</p>
+<ol type="1">
+<li>Start with basic YAML specifying both formats</li>
+<li>Write one section with both slide and document content</li>
+<li>Render both outputs and compare</li>
+<li>Iterate and expand</li>
+</ol>
+<p>Once you’re comfortable with the mechanics, this becomes a natural workflow that actually <em>saves</em> time compared to maintaining separate presentations and documentation.</p>
+</section>
+</section>
+<section id="questions" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="questions"><span class="header-section-number">11</span> Questions?</h2>
+<section id="contact-and-feedback" class="level3" data-number="11.1">
+<h3 data-number="11.1" class="anchored" data-anchor-id="contact-and-feedback"><span class="header-section-number">11.1</span> Contact and Feedback</h3>
+<p>If you have questions about this technique or want to share how you’ve adapted it for your own work, I’d love to hear from you!</p>
+<p>This presentation and documentation were created using the exact technique described within - eating our own dog food, as they say. The source <code>.qmd</code> file demonstrates every concept discussed, making it a practical template you can adapt for your own presentations.</p>
+<p><strong>Thank you for your time and attention!</strong></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

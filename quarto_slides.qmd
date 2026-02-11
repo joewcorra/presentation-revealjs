@@ -1,0 +1,432 @@
+---
+title: "Can You Share Those Slides?"
+subtitle: "Using Quarto and revealjs for Efficient Presentations"
+author: "Joe Corra"
+date: today
+format:
+  revealjs:
+    theme: dracula
+    slide-number: true
+    transition: slide
+  html:
+    theme: lux
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+---
+
+## Introduction: The Problem
+
+::: {.content-visible when-format="revealjs"}
+**Don't let your slides be your only document!**
+:::
+
+Problems with presentation-only slides:
+
+-   Slides lack context after the presentation
+-   Recreating content is tedious
+
+Problems with hybrid presentation-documentation slides:
+
+-   Presentation suffers so slides can serve as documents
+-   "Wall of text" slides are hard to read in any setting
+
+::: {.content-visible unless-format="revealjs"}
+We've all experienced this: you attend a great presentation, get the slides afterward, and find they're difficult to understand without the presenter's narration. Or you prepare for a presentation, knowing that your slides must do "double duty" as both a presentation tool and a stand-alone document, and create walls of text instead of eye-catching slides.
+
+One solution is to create two separate documents: concise slides for presenting and detailed documentation for sharing. But maintaining parallel documents can be time-consuming and error-prone, as changes to one require updating the other. Why not create one product that produces both documentation *and* slides?
+:::
+
+## Bad Slides: An Example
+
+![](images/bad_slide.png){width="404"}
+
+::: {.content-visible when-format="revealjs"}
+-   This slide performs two jobs poorly.
+
+-   Bad for viewing (Detracts from presentation)
+
+-   Bad for reading (just share a Word doc!)
+:::
+
+::: {.content-visible unless-format="revealjs"}
+-   This slide performs two jobs, and it's doing both poorly. The "wall of text" approach detracts from the presentation instead of enhancing it. The presenter might be better off with no slide at all! Further, it also fails at its secondary task of providing a permanent document: it's difficult to read text stretched across a slide, and the author is still space-limited by the format. Why not just share a Word doc?
+:::
+
+## What is Quarto?
+
+::: {.content-visible when-format="revealjs"}
+**Modern publishing system for technical content**
+
+-   Successor to R Markdown
+-   Execute code in your document
+-   Output to various formats (HTML, Word, PDF, & more)
+-   Create documents, presentations, dashboards, websites, & books
+-   Reproducible content in R, Python, Julia, & Observable
+-   Works with RStudio, Positron, & Jupyter notebooks
+:::
+
+::: {.content-visible unless-format="revealjs"}
+Quarto is an open-source scientific and technical publishing system built on Pandoc. It allows you to create dynamic content that combines narrative text, code, and output in a single document.
+
+**Key features:**
+
+-   **Markdown-based**: Write content in plain text with simple formatting syntax
+-   **Code execution**: Run R (or Python, Julia, etc.) code chunks and include results
+-   **Multiple outputs**: Render to HTML, PDF, Word, presentations, and more
+-   **RStudio integration**: Works seamlessly in the RStudio IDE
+
+Think of Quarto as the evolution of R Markdown, with enhanced features and broader language support. For R users, it provides a familiar authoring experience with powerful new capabilities.
+
+**Installation:**
+
+Quarto comes bundled with recent versions of RStudio, or you can install it separately from <https://quarto.org>.
+:::
+
+## What is revealjs?
+
+::: {.content-visible when-format="revealjs"}
+**HTML presentation framework** 
+
+- Web-based slides 
+- Professional appearance 
+- Interactive features 
+- Works anywhere
+
+:::
+
+::: {.content-visible unless-format="revealjs"}
+reveal.js is a popular open-source HTML presentation framework. When you use Quarto's revealjs format, you're creating web-based slides that run in any modern browser.
+
+**Advantages over traditional presentation software:**
+
+**Portable**: Runs in any web browser, no special software needed
+
+**Responsive**: Adapts to different screen sizes
+
+**Interactive**: Can include live code, interactive visualizations, embedded web content
+
+**Version control friendly**: Plain text source files work great with Git
+
+**Professional styling**: Beautiful default themes with extensive customization options
+
+**When to choose revealjs vs. PowerPoint:**
+
+**Choose revealjs** when you want interactive content, need to include live R code/outputs, want version control integration, or are sharing primarily via web/email
+
+**Choose PowerPoint** when presenting in environments with uncertain tech setups, when collaborators need to edit slides in PowerPoint, or when organizational standards require .pptx
+
+**Note**: Quarto can render to PowerPoint format too, giving you flexibility to switch output formats from the same source
+
+**Navigation:**
+
+-   Arrow keys or space bar to advance slides
+-   Press 'S' for speaker notes
+-   Press 'F' for fullscreen
+-   Press 'O' for overview mode
+
+**This presentation focuses on the basics:** revealjs offers much more advanced functionality including custom themes, transitions, fragments (incremental reveals), multimedia integration, speaker notes, and sophisticated layouts. We're keeping it simple to focus on the dual-format technique.
+
+For R users accustomed to creating reproducible reports, revealjs presentations extend that same philosophy to your presentations.
+:::
+
+## Our Solution: One Script for Two Outputs
+
+::: {.content-visible when-format="revealjs"}
+**Use conditional content to control what appears where**
+
+``` markdown
+::: {.content-visible when-format="revealjs"}
+Brief slide content
+:::
+
+::: {.content-visible unless-format="revealjs"}
+Detailed documentation
+:::
+```
+:::
+
+::: {.content-visible unless-format="revealjs"}
+The key insight is that Quarto allows you to specify multiple output formats and conditionally show/hide content based on the format being rendered. This means you can write one source file that generates both concise presentation slides and detailed documentation.
+
+**How it works:**
+
+1.  **Specify multiple formats** in your YAML header (revealjs and html)
+2.  **Use conditional content** with `.content-visible` to control what appears in each format
+3.  **Render to specific formats** as needed using terminal commands
+
+**The conditional content syntax:**
+
+-   `when-format="revealjs"` - content appears ONLY in slides
+-   `unless-format="revealjs"` - content appears in everything EXCEPT slides
+
+Shared content (that appears in both formats) is simply written normally, without any conditional wrapper.
+:::
+
+## Setting Up Your Document
+
+::: {.content-visible when-format="revealjs"}
+**YAML header:**
+
+``` yaml
+---
+title: "Your Presentation"
+format:
+  revealjs:
+    theme: default
+  html:
+    toc: true
+---
+```
+:::
+
+::: {.content-visible unless-format="revealjs"}
+Every Quarto document starts with a YAML header that specifies metadata and output options. For our dual-format approach, you'll specify both revealjs and html formats.
+
+**Complete YAML example:**
+
+``` yaml
+---
+title: "Your Presentation Title"
+subtitle: "Optional Subtitle"
+author: "Your Name"
+date: today
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    transition: slide
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+---
+```
+
+**Key options explained:**
+
+-   `theme`: Visual styling (default, dark, simple, etc.)
+-   `slide-number`: Show slide numbers in presentations
+-   `transition`: How slides advance (slide, fade, none, etc.)
+-   `toc`: Include table of contents in HTML document
+-   `code-fold`: Whether code chunks can be collapsed
+
+You can customize these extensively - check the Quarto documentation for all available options.
+:::
+
+## Rendering Your Outputs
+
+::: {.content-visible when-format="revealjs"}
+**Terminal commands for precise control:**
+
+``` bash
+# Slides for presenting
+quarto render doc.qmd --to revealjs \
+  --output slides.html
+
+# Document for sharing
+quarto render doc.qmd --to html \
+  --output document.html
+```
+
+**Or just comment out one of the formats in the YAML:**
+
+``` r
+format:
+  revealjs:
+    theme: moon
+    slide-number: true
+    transition: slide
+  # html:
+  #   theme: lux
+  #   toc: true
+  #   number-sections: true
+```
+:::
+
+::: {.content-visible unless-format="revealjs"}
+To generate your outputs, use Quarto's command-line interface. This gives you precise control over what gets rendered and what it's named.
+
+**Recommended workflow:**
+
+1.  **Before your presentation**, render the slides:
+
+``` bash
+   quarto render presentation.qmd --to revealjs --output presentation-slides.html
+```
+
+2.  **After your presentation**, render the documentation:
+
+``` bash
+   quarto render presentation.qmd --to html --output presentation-document.html
+```
+
+**Where to run these commands:**
+
+-   RStudio's Terminal pane (next to the Console)
+-   Your system terminal/command prompt
+-   Or use the R console with the `quarto` package:
+
+``` r
+  library(quarto)
+  quarto_render("presentation.qmd", output_format = "revealjs")
+```
+
+**Alternatively, comment out one of the formats in the YAML before rendering:**
+
+``` r
+format:
+  revealjs:
+    theme: moon
+    slide-number: true
+    transition: slide
+  # html:
+  #   theme: lux
+  #   toc: true
+  #   number-sections: true
+```
+:::
+
+## Live Demonstration
+
+::: {.content-visible when-format="revealjs"}
+**This very presentation demonstrates the technique!**
+
+-   If you're seeing this as slides → revealjs format
+-   If you're reading detailed text → HTML format
+-   Same source file → different outputs
+:::
+
+::: {.content-visible unless-format="revealjs"}
+### You're Reading the Documentation Version!
+
+If you're reading this, you're experiencing the HTML document output from our Quarto source file. Notice how each section includes:
+
+-   The brief, slide-appropriate content that appears in both formats
+-   Extended explanations, code examples, and context that only appear in this document version
+
+**What the slide version looks like:**
+
+The revealjs output shows only the concise bullet points and key information needed during a presentation. Each slide focuses on core concepts without overwhelming detail. The presenter (you!) provides the elaboration verbally.
+
+**What this document version provides:**
+
+-   Complete explanations that stand alone without a presenter
+-   Extended code examples with detailed commentary
+-   Supplementary information and resources
+-   Context that helps readers understand and apply concepts later
+
+**Try it yourself:**
+
+Generate both versions of this document using the terminal commands from the previous section. Open them side-by-side to see exactly how the same source creates two complementary outputs.
+:::
+
+## Best Practices
+
+::: {.content-visible when-format="revealjs"}
+**Tips for success:**
+
+-   Keep slide content minimal
+-   Put details in document sections
+-   Test both outputs regularly
+-   Include code examples in both
+:::
+
+::: {.content-visible unless-format="revealjs"}
+### Making the Most of Dual-Format Documents
+
+**Content strategy:**
+
+1.  **Shared content**: Core concepts, code examples, and key points go in unmarked sections (visible in both formats)
+2.  **Slide-only content**: Brief reminders, transitions, or presentation-specific notes use `when-format="revealjs"`
+3.  **Document-only content**: Extended explanations, detailed walkthroughs, and supplementary material use `unless-format="revealjs"`
+
+**Writing guidelines:**
+
+-   **Slides should be scannable**: Think bullet points, key phrases, and visual anchors for your verbal presentation
+-   **Documentation should be comprehensive**: Write as if the reader wasn't at your presentation and needs complete context
+-   **Don't duplicate unnecessarily**: If content works well in both formats, just write it once without conditional formatting
+
+**Technical tips:**
+
+-   Render both formats regularly during development to catch formatting issues early
+-   Use code folding (`code-fold: true`) in HTML output for long code chunks
+-   Consider adding speaker notes to slides using `::: {.notes}` blocks
+-   Test your slides at actual presentation resolution
+
+**Common pitfalls to avoid:**
+
+-   Don't make slides too text-heavy just because you can add detail to the document
+-   Don't forget to update both conditional sections when content changes
+-   Don't assume your audience will read the documentation - make slides self-sufficient for the presentation moment
+:::
+
+## Resources and Next Steps
+
+::: {.content-visible when-format="revealjs"}
+**Learn more:**
+
+-   Quarto documentation: <https://quarto.org>
+-   revealjs guide: <https://quarto.org/docs/presentations/revealjs/>
+-   This technique works for any content!
+:::
+
+::: {.content-visible unless-format="revealjs"}
+### Additional Resources
+
+**Official documentation:**
+
+-   **Quarto**: <https://quarto.org> - Comprehensive guides, examples, and reference
+-   **Quarto presentations**: <https://quarto.org/docs/presentations/> - Presentation-specific features
+-   **revealjs format**: <https://quarto.org/docs/presentations/revealjs/> - All revealjs options and customization
+
+**Advanced topics to explore:**
+
+-   **Themes and styling**: Create custom CSS themes for consistent branding
+-   **Interactive content**: Embed Shiny apps, interactive plots, or live code execution
+-   **Speaker notes**: Add presenter-only notes that don't appear in slides
+-   **Advanced layouts**: Multi-column slides, incremental reveals, fragments
+-   **Publishing**: Host your HTML outputs on GitHub Pages, Quarto Pub, or other platforms
+
+### Applying This Technique
+
+This same approach works for:
+
+-   **Training materials**: Presentation slides plus detailed tutorial documentation
+-   **Conference talks**: Public slides plus extended technical writeup
+-   **Internal reports**: Executive summary slides plus full analytical report
+-   **Course lectures**: Classroom slides plus student reference materials
+
+The key is thinking about your content in two modes: what you need to *present* and what your audience needs to *reference later*.
+
+### Try It Yourself
+
+Create a simple presentation on a topic you know well:
+
+1.  Start with basic YAML specifying both formats
+2.  Write one section with both slide and document content
+3.  Render both outputs and compare
+4.  Iterate and expand
+
+Once you're comfortable with the mechanics, this becomes a natural workflow that actually *saves* time compared to maintaining separate presentations and documentation.
+:::
+
+## Questions?
+
+::: {.content-visible when-format="revealjs"}
+**Thank you!**
+
+Questions or comments?
+:::
+
+::: {.content-visible unless-format="revealjs"}
+### Contact and Feedback
+
+If you have questions about this technique or want to share how you've adapted it for your own work, I'd love to hear from you!
+
+This presentation and documentation were created using the exact technique described within - eating our own dog food, as they say. The source `.qmd` file demonstrates every concept discussed, making it a practical template you can adapt for your own presentations.
+
+**Thank you for your time and attention!**
+:::
