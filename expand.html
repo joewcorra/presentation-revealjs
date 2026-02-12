@@ -1,0 +1,30 @@
+
+```html
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add click handlers to expandable items
+  document.querySelectorAll('.expandable').forEach(function(item) {
+    item.addEventListener('click', function() {
+      this.classList.toggle('expanded');
+    });
+  });
+});
+</script>
+
+<style>
+.expandable .details {
+  display: none;
+  margin-left: 2em;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+}
+
+.expandable.expanded .details {
+  display: block;
+}
+
+.expandable {
+  cursor: pointer;
+}
+</style>
+```

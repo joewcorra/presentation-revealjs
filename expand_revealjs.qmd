@@ -1,0 +1,58 @@
+---
+title: "Can You Share Those Slides? Part II"
+subtitle: "Using revealjs for Efficient Presentations"
+author: "Joe Corra"
+date: today
+format:
+  revealjs:
+    theme: dracula
+    slide-number: true
+    transition: slide
+    include-after-body: expand.html
+---
+
+## Introduction: The Problem
+
+::: {.expandable}
+**Don't muck up your slides with too much text!**
+
+Problems with presentation-only slides:
+
+-   Slides lack context after the presentation
+
+::: {.details}
+We've all experienced this: you attend a great presentation, get the slides afterward, and find they're difficult to understand without the presenter's narration. Or you prepare for a presentation, knowing that your slides must do "double duty" as both a presentation tool and a stand-alone document, and create walls of text instead of eye-catching slides.
+
+One solution is to create two separate documents: concise slides for presenting and detailed documentation for sharing. But maintaining parallel documents can be time-consuming and error-prone, as changes to one require updating the other. Why not create one product that produces both documentation *and* slides?
+:::
+
+-   Recreating content is tedious
+
+Problems with hybrid presentation-documentation slides:
+
+-   Presentation suffers so slides can serve as documents
+
+-   "Wall of text" slides are hard to read in any setting
+
+
+:::
+
+## Slide
+
+::: {.content-visible when-format="revealjs"}
+-   This slide performs two jobs poorly.
+
+-   Bad for viewing (Detracts from presentation)
+
+-   Bad for reading (just share a Word doc!)
+:::
+
+
+::: {.expandable}
+- Brief bullet point 2
+
+::: {.details}
+Extended explanation with more context, examples, or deeper dive into the concept.
+:::
+
+
