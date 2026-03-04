@@ -19,11 +19,11 @@ How do you share data with your team?
 
 Common pain points:
 
-- Email attachments
-- Shared drives with messy file names
-- `final_final_v3.csv`
-- "Which version is current?"
-- Lost context and metadata
+-   Email attachments
+-   Shared drives with messy file names
+-   `final_final_v3.csv`
+-   "Which version is current?"
+-   Lost context and metadata
 
 ## Enter {pins}
 
@@ -33,10 +33,10 @@ A package for **publishing and sharing** data, models, and other R objects
 
 Key benefits:
 
-- **Versioned**: automatic version tracking
-- **Discoverable**: metadata and search
-- **Reproducible**: programmatic access
-- **Collaborative**: share across teams
+-   **Versioned**: automatic version tracking
+-   **Discoverable**: metadata and search
+-   **Reproducible**: programmatic access
+-   **Collaborative**: share across teams
 
 ## Installation
 
@@ -49,6 +49,7 @@ install.packages("pins")
 
 # Load the package
 library(pins)
+library(dplyr)
 ```
 
 # Basic Concepts
@@ -61,42 +62,57 @@ A **pin** is a stored R object with metadata
 
 You can pin:
 
-- Data frames
-- Trained models
-- Lists
-- Spatial objects (sf)
-- Any R object
+-   Data frames
 
-- Choose the file type ("csv", "json", "rds", "parquet", "arrow", "qs")
+-   Trained models
 
-## What is a Board?
+-   Lists
 
+-   Spatial objects (sf)
+
+-   Any R object
+
+-   Choose the file type ("csv", "json", "rds", "parquet", "arrow", "qs")
+
+## What is a Board? {.center}
+
+::::: columns
+::: {.column width="\"50%"}
 A **board** is where pins live
 
-. . .
+Think of it as a cork board that you can relocate:
 
-Think of it as a storage location:
+-   Local folder
+-   Network drive
+-   Posit Connect
+-   Cloud storage (S3, Azure, GCS)
+-   URL (read-only)
+:::
 
-- Local folder
-- Network drive
-- RStudio Connect
-- Cloud storage (S3, Azure, GCS)
-- URL (read-only)
+::: {.column width="\"50%"}
+![](pins-presentation_files/images/corkboard.svg){fig-align="right" width="500"}
 
-## Three Main Functions
+:::
+
+::::
+
+## Four Main Functions
 
 ```{r}
 #| eval: false
 #| echo: true
 
+# Create a pins board 
+my_board <- board_folder("my_temporary_board")
+
 # Write a pin
-board %>% pin_write(data, "my-dataset")
+my_board %>% pin_write(my_data, "my-dataset")
 
 # Read a pin
-data <- board %>% pin_read("my-dataset")
+the_data <- my_board %>% pin_read("my-dataset")
 
 # List available pins
-board %>% pin_list()
+my_board %>% pin_list()
 ```
 
 # Live Demo {background-color="#40666e"}
@@ -110,7 +126,14 @@ board %>% pin_list()
 library(pins)
 
 # Create a board in a local folder
-board <- board_folder("~/my-pins")
+my_board <- board_temp(versioned = TRUE)
+
+my_board <- board_folder("penguins_board", versioned = TRUE)
+# Creates folder if none exists. 
+
+# board_folder() creates a board inside a folder
+# board_local() creates a board in a system data directory
+# board_temp() is useful for examples and tests.
 ```
 
 ## Pin Some Data
@@ -119,19 +142,17 @@ board <- board_folder("~/my-pins")
 #| eval: false
 #| echo: true
 
-# Create sample data
-sales_data <- data.frame(
-  month = month.name,
-  sales = sample(1000:5000, 12),
-  region = sample(c("North", "South", "East", "West"), 12, replace = TRUE)
-)
+# Sample data
+my_penguins <- penguins %>%
+  filter(species == "Adelie")
 
 # Pin it with metadata
-board %>% pin_write(
-  sales_data,
-  name = "monthly-sales",
-  title = "Monthly Sales Data",
-  description = "Sales by month and region for 2024"
+my_board %>% pin_write(
+  my_penguins,
+  name = "adelie-penguins",
+  title = "Adelie Penguins",
+  # type = "csv", # Defaults to .rds
+  description = "Palmer Penguins: Adelies only"
 )
 ```
 
@@ -141,8 +162,13 @@ board %>% pin_write(
 #| eval: false
 #| echo: true
 
+# List available pins
+my_board %>% pin_list()
+my_board %>% pin_search()
+my_board %>% pin_meta("adelie-penguins")
+
 # Read the pin
-retrieved_data <- board %>% pin_read("monthly-sales")
+retrieved_data <- my_board %>% pin_read("adelie-penguins")
 
 # View it
 head(retrieved_data)
@@ -155,13 +181,12 @@ head(retrieved_data)
 #| echo: true
 
 # Update the data
-sales_data$sales <- sales_data$sales * 1.1
+my_updated_penguins <- my_penguins %>%
+  mutate(observer = "Joe Corra")
 
 # Write again (creates new version)
-board %>% pin_write(sales_data, "monthly-sales")
+my_board %>% pin_write(my_updated_penguins, "adelie-penguins")
 
-# Check versions
-board %>% pin_versions("monthly-sales")
 ```
 
 ## Access Specific Versions
@@ -170,14 +195,18 @@ board %>% pin_versions("monthly-sales")
 #| eval: false
 #| echo: true
 
+# Check versions
+my_board %>% pin_versions("adelie-penguins")
+
 # Read a specific version
-old_data <- board %>% pin_read(
-  "monthly-sales",
-  version = "20240115T103000Z"  # example timestamp
+old_penguins <- my_board %>% pin_read(
+  "adelie-penguins",
+  version = "20260304T153852Z-0156c"  # old timestamp
 )
 
 # Prune old versions (keep last 5)
-board %>% pin_versions_prune("monthly-sales", n = 5)
+my_board %>% pin_versions_prune("adelie-penguins", n = 5)
+
 ```
 
 ## Metadata and Discovery
@@ -202,10 +231,10 @@ board %>% pin_delete("monthly-sales")
 
 Share lookup tables and reference datasets:
 
-- Fiscal calendars
-- Product codes
-- Geographic mappings
-- Standard assumptions
+-   Data dictionaries
+-   Measurement units and conversion factors
+-   Geographic mappings
+-   Standard assumptions
 
 . . .
 
@@ -232,18 +261,18 @@ analysis_data <- board %>% pin_read("analysis-ready-sales")
 
 ## Use Case 3: Model Deployment
 
-Store trained models for production use:
+Store models for production use:
 
 ```{r}
 #| eval: false
 #| echo: true
 
-# Train and pin a model
-model <- lm(sales ~ region + month, data = sales_data)
-board %>% pin_write(model, "sales-forecast-model")
+# Fit and pin a model
+model <- lm(flipper_len ~ body_mass + sex, data = iris)
+board %>% pin_write(model, "penguin-phys-model")
 
 # Load in production script
-model <- board %>% pin_read("sales-forecast-model")
+model <- board %>% pin_read("penguin-phys-model")
 new_predictions <- predict(model, new_data)
 ```
 
@@ -274,20 +303,19 @@ Pins may not be the best choice for:
 
 . . .
 
-- **Very large datasets** (multi-GB) - consider databases or direct Arrow files
-- **High-frequency updates** - real-time data needs a database
-- **Complex data pipelines** - {targets} might be better
-- **Formal data warehousing** - enterprise data infrastructure
-- **Extremely sensitive data** - may need database with audit logs
+-   **Very large datasets** (multi-GB) - consider databases or direct Arrow files
+-   **High-frequency updates** - real-time data needs a database
+-   **Formal data warehousing** - enterprise data infrastructure
+-   **Extremely sensitive data** - may need database with audit logs
 
 ## When Pins Shines
 
 The "sweet spot":
 
-- **Medium-sized datasets** (MBs to low GBs)
-- **Sharing between R users**
-- **Objects that don't fit in databases** (models, lists, sf objects)
-- **Quick collaboration** without infrastructure overhead
+-   **Medium-sized datasets** (MBs to low GBs)
+-   **Sharing among small teams**
+-   **Objects that don't fit in databases** (models, lists, sf objects)
+-   **Quick collaboration** without infrastructure overhead
 
 . . .
 
@@ -306,7 +334,7 @@ Different boards for different needs:
 # Network drive
 board <- board_folder("//server/shared/team-pins")
 
-# RStudio Connect
+# Posit Connect
 board <- board_connect()
 
 # AWS S3
@@ -329,12 +357,12 @@ Publish pins via simple web hosting:
 
 # Connect to a board hosted at a URL
 board <- board_url(c(
-  "monthly_sales" = "https://example.com/data/sales.rds",
-  "customer_ref" = "https://example.com/data/customers.rds"
+  "population_density" = "https://example.com/data/population_density.rds",
+  "pop_by_county" = "https://example.com/data/pop_by_county.rds"
 ))
 
 # Read a pin
-sales_data <- board %>% pin_read("monthly_sales")
+pop_data <- board %>% pin_read("pop_by_county")
 ```
 
 . . .
@@ -347,7 +375,7 @@ Great for: GitHub Pages, internal web servers, publishing reference data
 
 . . .
 
-**If you have RStudio Connect**: Use it! Purpose-built for this.
+**If you have Posit Connect**: Use it! Purpose-built for this.
 
 . . .
 
@@ -367,11 +395,11 @@ GitHub works great for small CSVs in code repos!
 
 Pins adds value for:
 
-- Non-CSV objects (models, lists, sf data)
-- Separating data updates from code commits
-- No git overhead for data consumers
-- Automatic metadata and versioning
-- Easy programmatic access
+-   Non-CSV objects (models, lists, sf data)
+-   Separating data updates from code commits
+-   No git overhead for data consumers
+-   Automatic metadata and versioning
+-   Easy programmatic access
 
 ## "Why not SharePoint?"
 
@@ -381,10 +409,10 @@ SharePoint absolutely works!
 
 But consider:
 
-- **Fragile file paths** that break when folders reorganize
-- **Manual version management** (file naming or web interface)
-- **No R-native integration** (just reading from paths)
-- **Discovery** requires browsing folders
+-   **Fragile file paths** that break when folders reorganize
+-   **Manual version management** (file naming or web interface)
+-   **No R-native integration** (just reading from paths)
+-   **Discovery** requires browsing folders
 
 . . .
 
@@ -459,24 +487,25 @@ arrow::open_dataset(path) %>%
 
 ## Key Takeaways
 
-1. Pins solves version control and discovery for data sharing
-2. Simple API: `pin_write()`, `pin_read()`, `pin_list()`
-3. Multiple board types fit different infrastructure
-4. Best for medium-sized data and R-to-R collaboration
-5. Complements (not replaces) Git, SharePoint, databases
+1.  Pins solves version control and discovery for data sharing
+2.  Simple API: `pin_write()`, `pin_read()`, `pin_list()`
+3.  Multiple board types fit different infrastructure
+4.  Best for medium-sized data and R-to-R collaboration
+5.  Complements (not replaces) Git, SharePoint, databases
 
 ## Resources
 
-- Package documentation: [pins.rstudio.com](https://pins.rstudio.com)
-- GitHub: [github.com/rstudio/pins-r](https://github.com/rstudio/pins-r)
-- RStudio Community: [community.rstudio.com](https://community.rstudio.com)
+-   Package documentation: [pins.rstudio.com](https://pins.rstudio.com)
+-   GitHub: [github.com/rstudio/pins-r](https://github.com/rstudio/pins-r)
+-   RStudio Community: [community.rstudio.com](https://community.rstudio.com)
 
 ## Questions?
 
 Thank you!
 
----
+------------------------------------------------------------------------
 
-**Contact**: your.email@company.com
+**Contact**: your.email\@company.com
 
-**Slides**: [link to slides if hosted]
+**Slides**: \[link to slides if hosted\]
+:::::

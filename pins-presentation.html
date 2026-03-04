@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Joe Corra, OAR | OCAP | CCPD | CPB">
-  <meta name="dcterms.date" content="2026-03-02">
+  <meta name="dcterms.date" content="2026-03-04">
   <title>Sharing Data with {pins}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,7 +206,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </div>
 </div>
 
-  <p class="date">2026-03-02</p>
+  <p class="date">2026-03-04</p>
 </section>
 <section id="the-problem" class="slide level2">
 <h2>The Problem</h2>
@@ -242,7 +242,8 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <span id="cb1-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"pins"</span>)</span>
 <span id="cb1-3"><a href=""></a></span>
 <span id="cb1-4"><a href=""></a><span class="co"># Load the package</span></span>
-<span id="cb1-5"><a href=""></a><span class="fu">library</span>(pins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(pins)</span>
+<span id="cb1-6"><a href=""></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section>
@@ -256,39 +257,50 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <div class="fragment">
 <p>You can pin:</p>
 <ul>
-<li>Data frames</li>
-<li>Trained models</li>
-<li>Lists</li>
-<li>Spatial objects (sf)</li>
-<li>Any R object</li>
+<li><p>Data frames</p></li>
+<li><p>Trained models</p></li>
+<li><p>Lists</p></li>
+<li><p>Spatial objects (sf)</p></li>
+<li><p>Any R object</p></li>
+<li><p>Choose the file type (“csv”, “json”, “rds”, “parquet”, “arrow”, “qs”)</p></li>
 </ul>
 </div>
 </section>
-<section id="what-is-a-board" class="slide level2">
+<section id="what-is-a-board" class="slide level2 center">
 <h2>What is a Board?</h2>
+<div class="columns">
+<div class="column" style="width:&quot;50%;">
 <p>A <strong>board</strong> is where pins live</p>
-<div class="fragment">
-<p>Think of it as a storage location:</p>
+<p>Think of it as a cork board that you can relocate:</p>
 <ul>
 <li>Local folder</li>
 <li>Network drive</li>
-<li>RStudio Connect</li>
+<li>Posit Connect</li>
 <li>Cloud storage (S3, Azure, GCS)</li>
 <li>URL (read-only)</li>
 </ul>
+</div><div class="column" style="width:&quot;50%;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="pins-presentation_files/images/corkboard.svg" class="quarto-figure quarto-figure-right" width="500"></p>
+</figure>
 </div>
+</div></div>
 </section>
-<section id="three-main-functions" class="slide level2">
-<h2>Three Main Functions</h2>
+<section id="four-main-functions" class="slide level2">
+<h2>Four Main Functions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Write a pin</span></span>
-<span id="cb2-2"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(data, <span class="st">"my-dataset"</span>)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Create a pins board </span></span>
+<span id="cb2-2"><a href=""></a>my_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"my_temporary_board"</span>)</span>
 <span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a><span class="co"># Read a pin</span></span>
-<span id="cb2-5"><a href=""></a>data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"my-dataset"</span>)</span>
+<span id="cb2-4"><a href=""></a><span class="co"># Write a pin</span></span>
+<span id="cb2-5"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(my_data, <span class="st">"my-dataset"</span>)</span>
 <span id="cb2-6"><a href=""></a></span>
-<span id="cb2-7"><a href=""></a><span class="co"># List available pins</span></span>
-<span id="cb2-8"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href=""></a><span class="co"># Read a pin</span></span>
+<span id="cb2-8"><a href=""></a>the_data <span class="ot">&lt;-</span> my_board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"my-dataset"</span>)</span>
+<span id="cb2-9"><a href=""></a></span>
+<span id="cb2-10"><a href=""></a><span class="co"># List available pins</span></span>
+<span id="cb2-11"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -302,62 +314,73 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(pins)</span>
 <span id="cb3-2"><a href=""></a></span>
 <span id="cb3-3"><a href=""></a><span class="co"># Create a board in a local folder</span></span>
-<span id="cb3-4"><a href=""></a>board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"~/my-pins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href=""></a>my_board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>(<span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href=""></a></span>
+<span id="cb3-6"><a href=""></a>my_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"penguins_board"</span>, <span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href=""></a><span class="co"># Creates folder if none exists. </span></span>
+<span id="cb3-8"><a href=""></a></span>
+<span id="cb3-9"><a href=""></a><span class="co"># board_folder() creates a board inside a folder</span></span>
+<span id="cb3-10"><a href=""></a><span class="co"># board_local() creates a board in a system data directory</span></span>
+<span id="cb3-11"><a href=""></a><span class="co"># board_temp() is useful for examples and tests.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="pin-some-data" class="slide level2">
 <h2>Pin Some Data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Create sample data</span></span>
-<span id="cb4-2"><a href=""></a>sales_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb4-3"><a href=""></a>  <span class="at">month =</span> month.name,</span>
-<span id="cb4-4"><a href=""></a>  <span class="at">sales =</span> <span class="fu">sample</span>(<span class="dv">1000</span><span class="sc">:</span><span class="dv">5000</span>, <span class="dv">12</span>),</span>
-<span id="cb4-5"><a href=""></a>  <span class="at">region =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span>), <span class="dv">12</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-6"><a href=""></a>)</span>
-<span id="cb4-7"><a href=""></a></span>
-<span id="cb4-8"><a href=""></a><span class="co"># Pin it with metadata</span></span>
-<span id="cb4-9"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(</span>
-<span id="cb4-10"><a href=""></a>  sales_data,</span>
-<span id="cb4-11"><a href=""></a>  <span class="at">name =</span> <span class="st">"monthly-sales"</span>,</span>
-<span id="cb4-12"><a href=""></a>  <span class="at">title =</span> <span class="st">"Monthly Sales Data"</span>,</span>
-<span id="cb4-13"><a href=""></a>  <span class="at">description =</span> <span class="st">"Sales by month and region for 2024"</span></span>
-<span id="cb4-14"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Sample data</span></span>
+<span id="cb4-2"><a href=""></a>my_penguins <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href=""></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Adelie"</span>)</span>
+<span id="cb4-4"><a href=""></a></span>
+<span id="cb4-5"><a href=""></a><span class="co"># Pin it with metadata</span></span>
+<span id="cb4-6"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(</span>
+<span id="cb4-7"><a href=""></a>  my_penguins,</span>
+<span id="cb4-8"><a href=""></a>  <span class="at">name =</span> <span class="st">"adelie-penguins"</span>,</span>
+<span id="cb4-9"><a href=""></a>  <span class="at">title =</span> <span class="st">"Adelie Penguins"</span>,</span>
+<span id="cb4-10"><a href=""></a>  <span class="co"># type = "csv", # Defaults to .rds</span></span>
+<span id="cb4-11"><a href=""></a>  <span class="at">description =</span> <span class="st">"Palmer Penguins: Adelies only"</span></span>
+<span id="cb4-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="read-the-pin" class="slide level2">
 <h2>Read the Pin</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Read the pin</span></span>
-<span id="cb5-2"><a href=""></a>retrieved_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"monthly-sales"</span>)</span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="co"># View it</span></span>
-<span id="cb5-5"><a href=""></a><span class="fu">head</span>(retrieved_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># List available pins</span></span>
+<span id="cb5-2"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_list</span>()</span>
+<span id="cb5-3"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_search</span>()</span>
+<span id="cb5-4"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_meta</span>(<span class="st">"adelie-penguins"</span>)</span>
+<span id="cb5-5"><a href=""></a></span>
+<span id="cb5-6"><a href=""></a><span class="co"># Read the pin</span></span>
+<span id="cb5-7"><a href=""></a>retrieved_data <span class="ot">&lt;-</span> my_board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"adelie-penguins"</span>)</span>
+<span id="cb5-8"><a href=""></a></span>
+<span id="cb5-9"><a href=""></a><span class="co"># View it</span></span>
+<span id="cb5-10"><a href=""></a><span class="fu">head</span>(retrieved_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="update-and-version" class="slide level2">
 <h2>Update and Version</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Update the data</span></span>
-<span id="cb6-2"><a href=""></a>sales_data<span class="sc">$</span>sales <span class="ot">&lt;-</span> sales_data<span class="sc">$</span>sales <span class="sc">*</span> <span class="fl">1.1</span></span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="co"># Write again (creates new version)</span></span>
-<span id="cb6-5"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(sales_data, <span class="st">"monthly-sales"</span>)</span>
-<span id="cb6-6"><a href=""></a></span>
-<span id="cb6-7"><a href=""></a><span class="co"># Check versions</span></span>
-<span id="cb6-8"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"monthly-sales"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href=""></a>my_updated_penguins <span class="ot">&lt;-</span> my_penguins <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">observer =</span> <span class="st">"Joe Corra"</span>)</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="co"># Write again (creates new version)</span></span>
+<span id="cb6-6"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(my_updated_penguins, <span class="st">"adelie-penguins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="access-specific-versions" class="slide level2">
 <h2>Access Specific Versions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Read a specific version</span></span>
-<span id="cb7-2"><a href=""></a>old_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(</span>
-<span id="cb7-3"><a href=""></a>  <span class="st">"monthly-sales"</span>,</span>
-<span id="cb7-4"><a href=""></a>  <span class="at">version =</span> <span class="st">"20240115T103000Z"</span>  <span class="co"># example timestamp</span></span>
-<span id="cb7-5"><a href=""></a>)</span>
-<span id="cb7-6"><a href=""></a></span>
-<span id="cb7-7"><a href=""></a><span class="co"># Prune old versions (keep last 5)</span></span>
-<span id="cb7-8"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_versions_prune</span>(<span class="st">"monthly-sales"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Check versions</span></span>
+<span id="cb7-2"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"adelie-penguins"</span>)</span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a><span class="co"># Read a specific version</span></span>
+<span id="cb7-5"><a href=""></a>old_penguins <span class="ot">&lt;-</span> my_board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(</span>
+<span id="cb7-6"><a href=""></a>  <span class="st">"adelie-penguins"</span>,</span>
+<span id="cb7-7"><a href=""></a>  <span class="at">version =</span> <span class="st">"20260304T153852Z-0156c"</span>  <span class="co"># old timestamp</span></span>
+<span id="cb7-8"><a href=""></a>)</span>
+<span id="cb7-9"><a href=""></a></span>
+<span id="cb7-10"><a href=""></a><span class="co"># Prune old versions (keep last 5)</span></span>
+<span id="cb7-11"><a href=""></a>my_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions_prune</span>(<span class="st">"adelie-penguins"</span>, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="metadata-and-discovery" class="slide level2">
@@ -382,8 +405,8 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <h2>Use Case 1: Reference Data</h2>
 <p>Share lookup tables and reference datasets:</p>
 <ul>
-<li>Fiscal calendars</li>
-<li>Product codes</li>
+<li>Data dictionaries</li>
+<li>Measurement units and conversion factors</li>
 <li>Geographic mappings</li>
 <li>Standard assumptions</li>
 </ul>
@@ -408,9 +431,9 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </section>
 <section id="use-case-3-model-deployment" class="slide level2">
 <h2>Use Case 3: Model Deployment</h2>
-<p>Store trained models for production use:</p>
+<p>Store models for production use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Train and pin a model</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Fit and pin a model</span></span>
 <span id="cb10-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> region <span class="sc">+</span> month, <span class="at">data =</span> sales_data)</span>
 <span id="cb10-3"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(model, <span class="st">"sales-forecast-model"</span>)</span>
 <span id="cb10-4"><a href=""></a></span>
@@ -446,7 +469,6 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <ul>
 <li><strong>Very large datasets</strong> (multi-GB) - consider databases or direct Arrow files</li>
 <li><strong>High-frequency updates</strong> - real-time data needs a database</li>
-<li><strong>Complex data pipelines</strong> - {targets} might be better</li>
 <li><strong>Formal data warehousing</strong> - enterprise data infrastructure</li>
 <li><strong>Extremely sensitive data</strong> - may need database with audit logs</li>
 </ul>
@@ -457,7 +479,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <p>The “sweet spot”:</p>
 <ul>
 <li><strong>Medium-sized datasets</strong> (MBs to low GBs)</li>
-<li><strong>Sharing between R users</strong></li>
+<li><strong>Sharing among small teams</strong></li>
 <li><strong>Objects that don’t fit in databases</strong> (models, lists, sf objects)</li>
 <li><strong>Quick collaboration</strong> without infrastructure overhead</li>
 </ul>
@@ -496,12 +518,12 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Connect to a board hosted at a URL</span></span>
 <span id="cb13-2"><a href=""></a>board <span class="ot">&lt;-</span> <span class="fu">board_url</span>(<span class="fu">c</span>(</span>
-<span id="cb13-3"><a href=""></a>  <span class="st">"monthly_sales"</span> <span class="ot">=</span> <span class="st">"https://example.com/data/sales.rds"</span>,</span>
-<span id="cb13-4"><a href=""></a>  <span class="st">"customer_ref"</span> <span class="ot">=</span> <span class="st">"https://example.com/data/customers.rds"</span></span>
+<span id="cb13-3"><a href=""></a>  <span class="st">"population_density"</span> <span class="ot">=</span> <span class="st">"https://example.com/data/population_density.rds"</span>,</span>
+<span id="cb13-4"><a href=""></a>  <span class="st">"pop_by_county"</span> <span class="ot">=</span> <span class="st">"https://example.com/data/pop_by_county.rds"</span></span>
 <span id="cb13-5"><a href=""></a>))</span>
 <span id="cb13-6"><a href=""></a></span>
 <span id="cb13-7"><a href=""></a><span class="co"># Read a pin</span></span>
-<span id="cb13-8"><a href=""></a>sales_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"monthly_sales"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a href=""></a>pop_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"pop_by_county"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Great for: GitHub Pages, internal web servers, publishing reference data</p>
@@ -636,7 +658,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <section class="slide level2">
 
 <p><strong>Contact</strong>: your.email@company.com</p>
-<p><strong>Slides</strong>: [link to slides if hosted]</p>
+<p><strong>Slides</strong>: [link to slides if hosted] :::::</p>
 
 </section></section>
     </div>

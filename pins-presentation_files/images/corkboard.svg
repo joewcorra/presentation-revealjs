@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <!-- Wood frame gradient -->
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5E3C;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#A0703F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B4423;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Cork texture pattern -->
+    <pattern id="cork" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#C8914A"/>
+      <ellipse cx="5" cy="5" rx="3" ry="2" fill="#B07D3A" opacity="0.5"/>
+      <ellipse cx="15" cy="3" rx="2" ry="3" fill="#D4A055" opacity="0.4"/>
+      <ellipse cx="10" cy="13" rx="3" ry="2" fill="#B07D3A" opacity="0.45"/>
+      <ellipse cx="2" cy="15" rx="2" ry="2" fill="#C49040" opacity="0.35"/>
+      <ellipse cx="17" cy="14" rx="2.5" ry="1.5" fill="#BF8A45" opacity="0.5"/>
+      <ellipse cx="8" cy="8" rx="1.5" ry="2" fill="#D4A055" opacity="0.3"/>
+    </pattern>
+
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="3" dy="4" stdDeviation="4" flood-color="#00000055"/>
+    </filter>
+
+    <!-- Pin head gradient -->
+    <radialGradient id="pinRed" cx="35%" cy="30%">
+      <stop offset="0%" style="stop-color:#FF6B6B"/>
+      <stop offset="100%" style="stop-color:#CC1111"/>
+    </radialGradient>
+    <radialGradient id="pinBlue" cx="35%" cy="30%">
+      <stop offset="0%" style="stop-color:#6B9FFF"/>
+      <stop offset="100%" style="stop-color:#1144CC"/>
+    </radialGradient>
+    <radialGradient id="pinYellow" cx="35%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFE66B"/>
+      <stop offset="100%" style="stop-color:#CCA811"/>
+    </radialGradient>
+    <radialGradient id="pinGreen" cx="35%" cy="30%">
+      <stop offset="0%" style="stop-color:#6BFF9F"/>
+      <stop offset="100%" style="stop-color:#11AA44"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer wood frame -->
+  <rect x="5" y="5" width="390" height="290" rx="10" ry="10" fill="url(#frameGrad)" filter="url(#shadow)"/>
+
+  <!-- Inner frame highlight (top/left) -->
+  <rect x="5" y="5" width="390" height="8" rx="8" fill="#C47A40" opacity="0.6"/>
+  <rect x="5" y="5" width="8" height="290" rx="8" fill="#C47A40" opacity="0.5"/>
+
+  <!-- Cork board surface -->
+  <rect x="22" y="22" width="356" height="256" rx="4" ry="4" fill="url(#cork)"/>
+
+  <!-- Subtle inner shadow on cork -->
+  <rect x="22" y="22" width="356" height="256" rx="4" ry="4" fill="none" stroke="#7a4a1a" stroke-width="2" opacity="0.3"/>
+
+  <!-- === NOTES / ITEMS ON BOARD === -->
+
+  <!-- Yellow sticky note -->
+  <g transform="rotate(-3, 100, 110)">
+    <rect x="50" y="50" width="100" height="80" rx="2" fill="#FFF176" filter="url(#shadow)"/>
+    <line x1="65" y1="75" x2="135" y2="75" stroke="#ccc" stroke-width="1.2"/>
+    <line x1="65" y1="88" x2="135" y2="88" stroke="#ccc" stroke-width="1.2"/>
+    <line x1="65" y1="101" x2="120" y2="101" stroke="#ccc" stroke-width="1.2"/>
+  </g>
+
+  <!-- White note card -->
+  <g transform="rotate(2, 230, 90)">
+    <rect x="175" y="45" width="110" height="75" rx="2" fill="#FAFAFA" filter="url(#shadow)"/>
+    <line x1="190" y1="68" x2="270" y2="68" stroke="#ddd" stroke-width="1.2"/>
+    <line x1="190" y1="80" x2="270" y2="80" stroke="#ddd" stroke-width="1.2"/>
+    <line x1="190" y1="92" x2="255" y2="92" stroke="#ddd" stroke-width="1.2"/>
+  </g>
+
+  <!-- Pink sticky note -->
+  <g transform="rotate(-1.5, 115, 210)">
+    <rect x="55" y="160" width="115" height="90" rx="2" fill="#F8BBD0" filter="url(#shadow)"/>
+    <line x1="72" y1="185" x2="155" y2="185" stroke="#e8a0b8" stroke-width="1.2"/>
+    <line x1="72" y1="198" x2="155" y2="198" stroke="#e8a0b8" stroke-width="1.2"/>
+    <line x1="72" y1="211" x2="140" y2="211" stroke="#e8a0b8" stroke-width="1.2"/>
+  </g>
+
+  <!-- Blue note -->
+  <g transform="rotate(2.5, 260, 195)">
+    <rect x="195" y="150" width="120" height="85" rx="2" fill="#BBDEFB" filter="url(#shadow)"/>
+    <line x1="212" y1="173" x2="300" y2="173" stroke="#90c0ef" stroke-width="1.2"/>
+    <line x1="212" y1="186" x2="300" y2="186" stroke="#90c0ef" stroke-width="1.2"/>
+    <line x1="212" y1="199" x2="285" y2="199" stroke="#90c0ef" stroke-width="1.2"/>
+  </g>
+
+  <!-- Small torn piece of paper -->
+  <g transform="rotate(-4, 330, 95)">
+    <polygon points="295,60 360,55 365,110 290,115" fill="#FFFDE7" filter="url(#shadow)"/>
+    <line x1="305" y1="78" x2="355" y2="75" stroke="#ddd" stroke-width="1.2"/>
+    <line x1="304" y1="90" x2="354" y2="87" stroke="#ddd" stroke-width="1.2"/>
+  </g>
+
+  <!-- === PUSH PINS === -->
+
+  <!-- Red pin on yellow note -->
+  <line x1="100" y1="56" x2="100" y2="68" stroke="#888" stroke-width="1.5"/>
+  <circle cx="100" cy="50" r="7" fill="url(#pinRed)"/>
+  <circle cx="97" cy="47" r="2" fill="white" opacity="0.4"/>
+
+  <!-- Blue pin on white note -->
+  <line x1="230" y1="51" x2="230" y2="63" stroke="#888" stroke-width="1.5"/>
+  <circle cx="230" cy="45" r="7" fill="url(#pinBlue)"/>
+  <circle cx="227" cy="42" r="2" fill="white" opacity="0.4"/>
+
+  <!-- Yellow pin on pink note -->
+  <line x1="113" y1="166" x2="113" y2="178" stroke="#888" stroke-width="1.5"/>
+  <circle cx="113" cy="160" r="7" fill="url(#pinYellow)"/>
+  <circle cx="110" cy="157" r="2" fill="white" opacity="0.4"/>
+
+  <!-- Green pin on blue note -->
+  <line x1="255" y1="156" x2="255" y2="168" stroke="#888" stroke-width="1.5"/>
+  <circle cx="255" cy="150" r="7" fill="url(#pinGreen)"/>
+  <circle cx="252" cy="147" r="2" fill="white" opacity="0.4"/>
+
+  <!-- Red pin on torn paper -->
+  <line x1="328" y1="61" x2="328" y2="73" stroke="#888" stroke-width="1.5"/>
+  <circle cx="328" cy="55" r="7" fill="url(#pinRed)"/>
+  <circle cx="325" cy="52" r="2" fill="white" opacity="0.4"/>
+
+  <!-- Extra lone pin (decorative) -->
+  <line x1="355" y1="235" x2="355" y2="247" stroke="#888" stroke-width="1.5"/>
+  <circle cx="355" cy="229" r="7" fill="url(#pinBlue)"/>
+  <circle cx="352" cy="226" r="2" fill="white" opacity="0.4"/>
+
+</svg>
