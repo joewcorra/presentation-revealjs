@@ -11,19 +11,29 @@ format:
     preview-links: auto
 ---
 
-## The Problem
+## Data Sharing Approaches
 
-How do you share data with your team?
-
-. . .
-
-Common pain points:
+:::::: columns
+::: {.column width="40%"}
+**Too simple**
 
 -   Email attachments
--   Shared drives with messy file names
+-   Messy file names and paths
+-   Ad hoc versioning
 -   `final_final_v3.csv`
--   "Which version is current?"
--   Lost context and metadata
+:::
+
+::: {.column width="20%"}
+:::
+
+::: {.column width="40%"}
+**Too complicated**
+
+-   Complex databases not always needed
+-   Steep learning curve
+-   Constant management
+:::
+::::::
 
 ## Enter {pins}
 
@@ -91,10 +101,8 @@ Think of it as a cork board that you can relocate:
 
 ::: {.column width="\"50%"}
 ![](pins-presentation_files/images/corkboard.svg){fig-align="right" width="500"}
-
 :::
-
-::::
+:::::
 
 ## Four Main Functions
 
@@ -268,7 +276,7 @@ Store models for production use:
 #| echo: true
 
 # Fit and pin a model
-model <- lm(flipper_len ~ body_mass + sex, data = iris)
+model <- lm(flipper_len ~ body_mass + sex, data = penguins)
 board %>% pin_write(model, "penguin-phys-model")
 
 # Load in production script
@@ -451,7 +459,7 @@ data <- read.csv("https://example.com/data/file.csv")
 
 All work across R, Python, SQL, Spark, etc.
 
-## Pins + Parquet
+## Pins + Arrow
 
 ```{r}
 #| eval: false
@@ -460,7 +468,7 @@ All work across R, Python, SQL, Spark, etc.
 library(arrow)
 
 # Write as parquet
-board %>% pin_write(my_data, "dataset", type = "parquet")
+board %>% pin_write(my_data, "dataset", type = "arrow")
 
 # Read (still loads into memory)
 data <- board %>% pin_read("dataset")
@@ -505,7 +513,6 @@ Thank you!
 
 ------------------------------------------------------------------------
 
-**Contact**: your.email\@company.com
+**Contact**: corra.joseph\@epa.gov
 
-**Slides**: \[link to slides if hosted\]
-:::::
+**Slides**: \[link to slides if hosted\] :::::

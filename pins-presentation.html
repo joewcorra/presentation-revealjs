@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Joe Corra, OAR | OCAP | CCPD | CPB">
-  <meta name="dcterms.date" content="2026-03-04">
+  <meta name="dcterms.date" content="2026-03-10">
   <title>Sharing Data with {pins}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,21 +206,29 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </div>
 </div>
 
-  <p class="date">2026-03-04</p>
+  <p class="date">2026-03-10</p>
 </section>
-<section id="the-problem" class="slide level2">
-<h2>The Problem</h2>
-<p>How do you share data with your team?</p>
-<div class="fragment">
-<p>Common pain points:</p>
+<section id="data-sharing-approaches" class="slide level2">
+<h2>Data Sharing Approaches</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><strong>Too simple</strong></p>
 <ul>
 <li>Email attachments</li>
-<li>Shared drives with messy file names</li>
+<li>Messy file names and paths</li>
+<li>Ad hoc versioning</li>
 <li><code>final_final_v3.csv</code></li>
-<li>“Which version is current?”</li>
-<li>Lost context and metadata</li>
 </ul>
-</div>
+</div><div class="column" style="width:20%;">
+
+</div><div class="column" style="width:40%;">
+<p><strong>Too complicated</strong></p>
+<ul>
+<li>Complex databases not always needed</li>
+<li>Steep learning curve</li>
+<li>Constant management</li>
+</ul>
+</div></div>
 </section>
 <section id="enter-pins" class="slide level2">
 <h2>Enter {pins}</h2>
@@ -434,11 +442,11 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <p>Store models for production use:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Fit and pin a model</span></span>
-<span id="cb10-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(sales <span class="sc">~</span> region <span class="sc">+</span> month, <span class="at">data =</span> sales_data)</span>
-<span id="cb10-3"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(model, <span class="st">"sales-forecast-model"</span>)</span>
+<span id="cb10-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(flipper_len <span class="sc">~</span> body_mass <span class="sc">+</span> sex, <span class="at">data =</span> iris)</span>
+<span id="cb10-3"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(model, <span class="st">"penguin-phys-model"</span>)</span>
 <span id="cb10-4"><a href=""></a></span>
 <span id="cb10-5"><a href=""></a><span class="co"># Load in production script</span></span>
-<span id="cb10-6"><a href=""></a>model <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"sales-forecast-model"</span>)</span>
+<span id="cb10-6"><a href=""></a>model <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"penguin-phys-model"</span>)</span>
 <span id="cb10-7"><a href=""></a>new_predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, new_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -499,7 +507,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># Network drive</span></span>
 <span id="cb12-2"><a href=""></a>board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"//server/shared/team-pins"</span>)</span>
 <span id="cb12-3"><a href=""></a></span>
-<span id="cb12-4"><a href=""></a><span class="co"># RStudio Connect</span></span>
+<span id="cb12-4"><a href=""></a><span class="co"># Posit Connect</span></span>
 <span id="cb12-5"><a href=""></a>board <span class="ot">&lt;-</span> <span class="fu">board_connect</span>()</span>
 <span id="cb12-6"><a href=""></a></span>
 <span id="cb12-7"><a href=""></a><span class="co"># AWS S3</span></span>
@@ -533,7 +541,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <h2>Recommendations for Your Team</h2>
 <p><strong>Start simple</strong>: <code>board_folder()</code> on a shared network drive</p>
 <div class="fragment">
-<p><strong>If you have RStudio Connect</strong>: Use it! Purpose-built for this.</p>
+<p><strong>If you have Posit Connect</strong>: Use it! Purpose-built for this.</p>
 </div>
 <div class="fragment">
 <p><strong>Cloud-enabled</strong>: S3/Azure/GCS boards scale well</p>
