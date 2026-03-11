@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Joe Corra, OAR | OCAP | CCPD | CPB">
-  <meta name="dcterms.date" content="2026-03-10">
+  <meta name="dcterms.date" content="2026-03-11">
   <title>Sharing Data with {pins}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,7 +206,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </div>
 </div>
 
-  <p class="date">2026-03-10</p>
+  <p class="date">2026-03-11</p>
 </section>
 <section id="data-sharing-approaches" class="slide level2">
 <h2>Data Sharing Approaches</h2>
@@ -442,7 +442,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <p>Store models for production use:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Fit and pin a model</span></span>
-<span id="cb10-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(flipper_len <span class="sc">~</span> body_mass <span class="sc">+</span> sex, <span class="at">data =</span> iris)</span>
+<span id="cb10-2"><a href=""></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(flipper_len <span class="sc">~</span> body_mass <span class="sc">+</span> sex, <span class="at">data =</span> penguins)</span>
 <span id="cb10-3"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(model, <span class="st">"penguin-phys-model"</span>)</span>
 <span id="cb10-4"><a href=""></a></span>
 <span id="cb10-5"><a href=""></a><span class="co"># Load in production script</span></span>
@@ -612,13 +612,13 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <p>All work across R, Python, SQL, Spark, etc.</p>
 </div>
 </section>
-<section id="pins-parquet" class="slide level2">
-<h2>Pins + Parquet</h2>
+<section id="pins-arrow" class="slide level2">
+<h2>Pins + Arrow</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">library</span>(arrow)</span>
 <span id="cb15-2"><a href=""></a></span>
 <span id="cb15-3"><a href=""></a><span class="co"># Write as parquet</span></span>
-<span id="cb15-4"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(my_data, <span class="st">"dataset"</span>, <span class="at">type =</span> <span class="st">"parquet"</span>)</span>
+<span id="cb15-4"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(my_data, <span class="st">"dataset"</span>, <span class="at">type =</span> <span class="st">"arrow"</span>)</span>
 <span id="cb15-5"><a href=""></a></span>
 <span id="cb15-6"><a href=""></a><span class="co"># Read (still loads into memory)</span></span>
 <span id="cb15-7"><a href=""></a>data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"dataset"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -665,7 +665,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </section>
 <section class="slide level2">
 
-<p><strong>Contact</strong>: your.email@company.com</p>
+<p><strong>Contact</strong>: corra.joseph@epa.gov</p>
 <p><strong>Slides</strong>: [link to slides if hosted] :::::</p>
 
 </section></section>

@@ -13,7 +13,6 @@ my_board <- board_temp(versioned = TRUE)
 my_board <- board_folder("penguins_board", versioned = TRUE)
 
 # board_folder() creates a board inside a folder
-# board_local() creates a board in a system data directory
 
 
 # Pin Some Data-----------------
@@ -46,7 +45,7 @@ head(retrieved_data)
 # Update and Version--------------
 
 # Update the data
-my_updated_penguins <- my_penguins %>%
+my_updated_penguins <- retrieved_data %>%
   mutate(observer = "Firstname Lastname")
 
 # Write again (creates new version)
@@ -62,7 +61,7 @@ my_board %>% pin_versions("adelie-penguins")
 # Read a specific version
 old_penguins <- my_board %>% pin_read(
   "adelie-penguins",
-  version = "20260304T153852Z-0156c"  # old timestamp
+  version = "20260311T112401Z-0156c"  # old timestamp
 )
 
 # Prune old versions (keep last 5)
@@ -72,16 +71,15 @@ my_board %>% pin_versions_prune("adelie-penguins", n = 5)
 
 # Metadata and Discovery---------
 
+
 # View metadata
 my_board %>% pin_meta("adelie-penguins")
 
 # Search for pins
-my_board %>% pin_search("adelie-penguins")
+my_board %>% pin_search("ad")
 
 # Delete a pin
 my_board %>% pin_delete("adelie-penguins")
-
-
 
 
 

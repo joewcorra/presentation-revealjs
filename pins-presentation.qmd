@@ -224,13 +224,13 @@ my_board %>% pin_versions_prune("adelie-penguins", n = 5)
 #| echo: true
 
 # View metadata
-board %>% pin_meta("monthly-sales")
+board %>% pin_meta("ippu-dist-ammonia")
 
 # Search for pins
-board %>% pin_search("sales")
+board %>% pin_search("ammonia")
 
 # Delete a pin
-board %>% pin_delete("monthly-sales")
+board %>% pin_delete("ippu-dist-ammonia")
 ```
 
 # Real-World Use Cases
@@ -261,10 +261,10 @@ clean_data <- raw_data %>%
   clean_names() %>%
   filter(!is.na(key_field))
 
-board %>% pin_write(clean_data, "analysis-ready-sales")
+board %>% pin_write(clean_data, "analysis-ready-data")
 
 # Analysts read and use
-analysis_data <- board %>% pin_read("analysis-ready-sales")
+analysis_data <- board %>% pin_read("analysis-ready-data")
 ```
 
 ## Use Case 3: Model Deployment
@@ -424,7 +424,7 @@ But consider:
 
 . . .
 
-**Pins solution**: `pin_read("clean-sales")` works the same for everyone
+**Pins solution**: `pin_read("clean-data")` works the same for everyone
 
 ## "Can I download any CSV from a website?"
 
@@ -515,4 +515,3 @@ Thank you!
 
 **Contact**: corra.joseph\@epa.gov
 
-**Slides**: \[link to slides if hosted\] :::::
