@@ -467,7 +467,7 @@ All work across R, Python, SQL, Spark, etc.
 
 library(arrow)
 
-# Write as parquet
+# Write as arrow
 board %>% pin_write(my_data, "dataset", type = "arrow")
 
 # Read (still loads into memory)

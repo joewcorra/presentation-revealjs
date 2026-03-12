@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Joe Corra, OAR | OCAP | CCPD | CPB">
-  <meta name="dcterms.date" content="2026-03-11">
+  <meta name="dcterms.date" content="2026-03-12">
   <title>Sharing Data with {pins}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,7 +206,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </div>
 </div>
 
-  <p class="date">2026-03-11</p>
+  <p class="date">2026-03-12</p>
 </section>
 <section id="data-sharing-approaches" class="slide level2">
 <h2>Data Sharing Approaches</h2>
@@ -395,13 +395,13 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <h2>Metadata and Discovery</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># View metadata</span></span>
-<span id="cb8-2"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_meta</span>(<span class="st">"monthly-sales"</span>)</span>
+<span id="cb8-2"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_meta</span>(<span class="st">"ippu-dist-ammonia"</span>)</span>
 <span id="cb8-3"><a href=""></a></span>
 <span id="cb8-4"><a href=""></a><span class="co"># Search for pins</span></span>
-<span id="cb8-5"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_search</span>(<span class="st">"sales"</span>)</span>
+<span id="cb8-5"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_search</span>(<span class="st">"ammonia"</span>)</span>
 <span id="cb8-6"><a href=""></a></span>
 <span id="cb8-7"><a href=""></a><span class="co"># Delete a pin</span></span>
-<span id="cb8-8"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_delete</span>(<span class="st">"monthly-sales"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-8"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_delete</span>(<span class="st">"ippu-dist-ammonia"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -431,10 +431,10 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <span id="cb9-3"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb9-4"><a href=""></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(key_field))</span>
 <span id="cb9-5"><a href=""></a></span>
-<span id="cb9-6"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(clean_data, <span class="st">"analysis-ready-sales"</span>)</span>
+<span id="cb9-6"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(clean_data, <span class="st">"analysis-ready-data"</span>)</span>
 <span id="cb9-7"><a href=""></a></span>
 <span id="cb9-8"><a href=""></a><span class="co"># Analysts read and use</span></span>
-<span id="cb9-9"><a href=""></a>analysis_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"analysis-ready-sales"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-9"><a href=""></a>analysis_data <span class="ot">&lt;-</span> board <span class="sc">%&gt;%</span> <span class="fu">pin_read</span>(<span class="st">"analysis-ready-data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="use-case-3-model-deployment" class="slide level2">
@@ -582,7 +582,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Pins solution</strong>: <code>pin_read("clean-sales")</code> works the same for everyone</p>
+<p><strong>Pins solution</strong>: <code>pin_read("clean-data")</code> works the same for everyone</p>
 </div>
 </section>
 <section id="can-i-download-any-csv-from-a-website" class="slide level2">
@@ -666,7 +666,6 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <section class="slide level2">
 
 <p><strong>Contact</strong>: corra.joseph@epa.gov</p>
-<p><strong>Slides</strong>: [link to slides if hosted] :::::</p>
 
 </section></section>
     </div>

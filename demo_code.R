@@ -6,22 +6,20 @@ library(pins)
 # Create a Local Board------------------
 # Create a board in a local folder
 
-# board_temp() is useful for examples and tests.
-my_board <- board_temp(versioned = TRUE)
-
 # Creates folder if none exists
 my_board <- board_folder("penguins_board", versioned = TRUE)
 
-# board_folder() creates a board inside a folder
 
 
 # Pin Some Data-----------------
+
 # Sample data
 my_penguins <- penguins %>%
   filter(species == "Adelie")
 
 # Pin it with metadata
-my_board %>% pin_write(
+pin_write(
+  my_board, 
   my_penguins,
   name = "adelie-penguins",
   title = "Adelie Penguins",
@@ -76,11 +74,11 @@ my_board %>% pin_versions_prune("adelie-penguins", n = 5)
 my_board %>% pin_meta("adelie-penguins")
 
 # Search for pins
-my_board %>% pin_search("ad")
+my_board %>% pin_search("penguins")
 
 # Delete a pin
 my_board %>% pin_delete("adelie-penguins")
-
+# NOTE: Sometimes you'll get an error due to OneDrive 
 
 
 
