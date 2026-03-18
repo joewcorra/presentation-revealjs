@@ -59,7 +59,6 @@ install.packages("pins")
 
 # Load the package
 library(pins)
-library(dplyr)
 ```
 
 # Basic Concepts
