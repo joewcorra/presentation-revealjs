@@ -31,7 +31,7 @@ pin_write(
 # Read the Pin---------------
 
 # List available pins
-my_board %>% pin_list()
+pin_list(my_board)
 
 # Read the pin
 retrieved_data <- pin_read(my_board, "adelie-penguins")
@@ -59,12 +59,11 @@ my_board %>% pin_versions("adelie-penguins")
 # Read a specific version
 old_penguins <- my_board %>% pin_read(
   "adelie-penguins",
-  version = "20260311T112401Z-0156c"  # old timestamp
+  version = "20260317T190742Z-0156c"  # old timestamp
 )
 
 # Prune old versions (keep last 5)
 my_board %>% pin_versions_prune("adelie-penguins", n = 5)
-
 
 
 # Metadata and Discovery---------
@@ -79,8 +78,6 @@ my_board %>% pin_search("penguins")
 # Delete a pin
 my_board %>% pin_delete("adelie-penguins")
 # NOTE: Sometimes you'll get an error due to OneDrive 
-
-
 
 
 # Real World Example: targets pipeline for GHGI Fossil Fuels----------

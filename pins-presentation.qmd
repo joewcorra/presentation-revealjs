@@ -496,7 +496,7 @@ arrow::open_dataset(path) %>%
 ## Key Takeaways
 
 1.  Pins solves version control and discovery for data sharing
-2.  Simple API: `pin_write()`, `pin_read()`, `pin_list()`
+2.  Simple: `pin_write()`, `pin_read()`, `pin_list()`
 3.  Multiple board types fit different infrastructure
 4.  Best for medium-sized data and R-to-R collaboration
 5.  Complements (not replaces) Git, SharePoint, databases

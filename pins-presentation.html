@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Joe Corra, OAR | OCAP | CCPD | CPB">
-  <meta name="dcterms.date" content="2026-03-12">
+  <meta name="dcterms.date" content="2026-03-18">
   <title>Sharing Data with {pins}</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,7 +206,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 </div>
 </div>
 
-  <p class="date">2026-03-12</p>
+  <p class="date">2026-03-18</p>
 </section>
 <section id="data-sharing-approaches" class="slide level2">
 <h2>Data Sharing Approaches</h2>
@@ -617,7 +617,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">library</span>(arrow)</span>
 <span id="cb15-2"><a href=""></a></span>
-<span id="cb15-3"><a href=""></a><span class="co"># Write as parquet</span></span>
+<span id="cb15-3"><a href=""></a><span class="co"># Write as arrow</span></span>
 <span id="cb15-4"><a href=""></a>board <span class="sc">%&gt;%</span> <span class="fu">pin_write</span>(my_data, <span class="st">"dataset"</span>, <span class="at">type =</span> <span class="st">"arrow"</span>)</span>
 <span id="cb15-5"><a href=""></a></span>
 <span id="cb15-6"><a href=""></a><span class="co"># Read (still loads into memory)</span></span>
@@ -645,7 +645,7 @@ Joe Corra, OAR | OCAP | CCPD | CPB
 <h2>Key Takeaways</h2>
 <ol type="1">
 <li>Pins solves version control and discovery for data sharing</li>
-<li>Simple API: <code>pin_write()</code>, <code>pin_read()</code>, <code>pin_list()</code></li>
+<li>Simple: <code>pin_write()</code>, <code>pin_read()</code>, <code>pin_list()</code></li>
 <li>Multiple board types fit different infrastructure</li>
 <li>Best for medium-sized data and R-to-R collaboration</li>
 <li>Complements (not replaces) Git, SharePoint, databases</li>
